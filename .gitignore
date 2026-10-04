@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+node_modules/
+dist/
+coverage/
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+backups/
+uploads/
+receipts/
+statements/
+*.log
