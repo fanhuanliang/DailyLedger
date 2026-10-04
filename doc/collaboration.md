@@ -13,3 +13,6 @@ Final review: Claude Code approved the documentation setup after a fresh read. N
 
 ## Claude instruction update
 Codex expanded CLAUDE.md while retaining @AGENTS.md. Claude re-read the files, checked nine teamwork requirements, and approved with no actionable findings. Documentation only; no app tests required.
+
+## TDD instruction update
+Claude read the current rules and approved Red/Green/Refactor, recorded failure evidence, retained regression tests, reviewer enforcement, and narrowly scoped exceptions. No actionable findings. Documentation-only step; application tests not applicable.

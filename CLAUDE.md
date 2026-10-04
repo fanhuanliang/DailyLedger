@@ -14,3 +14,5 @@ AGENTS.md contains the shared rules for both teammates. Follow it fully; doc/spe
 - Aim for no unresolved known defects, meaningful test evidence, and disclosed limitations. Do not promise a bug-free app.
 
 CLI collaboration uses the dedicated session recorded in doc/collaboration.md. It does not automatically connect to or message the owner's separate desktop chat. Record handoffs and review results in the tracking files when you own edits.
+
+Test-driven development is mandatory for application behavior and defect fixes under AGENTS.md section 9. As coder, write and run a meaningful failing test first, implement to Green, then refactor and verify regressions. As reviewer, check recorded Red/Green evidence and test relevance before approval. Documentation/scaffolding and manual-check exceptions are defined in the shared rules; do not invent broader exceptions.

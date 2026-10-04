@@ -33,3 +33,10 @@ Coder: Codex. Reviewer: Claude Code (read-only).
 Starting commit: ba5b34f. Edit ownership: CLAUDE.md and tracking records.
 Checks: independent instruction consistency review and staged whitespace check; application tests not applicable.
 Status: Claude Code reviewed current instructions against AGENTS.md and approved with no actionable findings. Application tests not applicable. Commit follows staged whitespace and diff inspection; see git log for hash.
+
+## TDD instruction update
+Scope: require Red -> Green -> Refactor for application behavior and regression fixes.
+Coder: Codex. Reviewer: Claude Code (read-only).
+Starting commit: 5aada6d. Edit ownership: AGENTS.md, CLAUDE.md and tracking records.
+Checks: independent rules consistency review, staged diff and whitespace check. Red/Green app runs are not applicable to this documentation-only step; no application implementation exists.
+Status: Claude Code independently reviewed and approved with no actionable findings. Documentation checks precede commit; no application tests claimed.

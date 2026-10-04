@@ -109,8 +109,17 @@ DailyLedger/
 - Duplicate detection only flags candidates. It never deletes or auto-skips rows.
 - When using the MCP tools in chat, always get explicit user approval of the exact preview before calling `commit_import`.
 
-## 9. Testing
+## 9. Test-driven development and verification
 
+- Use test-driven development for new application behavior and bug fixes: **Red -> Green -> Refactor**.
+  1. Red: derive a focused behavior or regression test from the spec or reported defect, write it before implementation, and run it. Confirm the failure is due to missing/incorrect behavior; broken test setup, unavailable dependencies, or syntax errors do not establish the Red step.
+  2. Green: implement the smallest correct change that satisfies the behavior, then run the focused test and affected regression tests.
+  3. Refactor: improve structure while preserving behavior and keeping tests passing. Run the applicable suite, type checks, and build before independent review and commit.
+- Record Red and Green commands, actual outcomes, and a concise failure reason in doc/progress.md for each behavior step. Do not fabricate a failing run, write tests after implementation and call it TDD, or weaken assertions to obtain Green.
+- For bug fixes, first reproduce the defect with a failing regression test; retain that test after fixing the defect.
+- Prefer observable behavior and public contracts over private implementation details. Use real temporary SQLite databases for persistence and transaction tests; do not mock away the behavior being verified.
+- The reviewer checks the test's relevance to the spec and the recorded Red/Green evidence, not merely that a final suite passes. Review must reject unverified TDD claims.
+- Documentation-only edits and dependency/test-runner scaffolding do not need artificial failing behavior tests. Pure presentation and environment-dependent deployment checks may use explicit manual acceptance evidence when automation is unsuitable; record the reason and actual result. These exceptions do not waive test-first coverage for money, dates, validation, API writes, data integrity, import safety, or other application logic. If a meaningful Red run is blocked, report it and resolve the test environment before implementing the affected logic.
 - Backend: Jest + supertest against a temporary or in-memory SQLite database. Frontend: Vitest + Testing Library.
 - Every calculation rule in §4 gets unit tests, including edge cases: credit card sign, before-opening-date, refund > expense, Feb 29, month-end recurrence, half-up rounding.
 - Track AC1-AC15 with meaningful automated tests where suitable and recorded manual or deployment checks where appropriate. Name automated acceptance tests with the relevant criterion. Do not substitute mocked tests for real network, responsive UI, or backup/restore verification.
@@ -136,7 +145,7 @@ Default roles: Codex is coder and coordinator; Claude Code is independent review
 
 For every independently reviewable step:
 1. Record scope, coder, reviewer, starting commit (or initial working state), owned files, and expected checks in doc/progress.md.
-2. Coder implements the step and runs appropriate tests, type checks, and builds. Use behavior and edge-case tests for substantive logic; do not add implementation-mirroring tests for trivial documentation changes.
+2. Coder follows the test-first Red -> Green -> Refactor cycle in section 9 for behavior changes and records its evidence, then runs appropriate tests, type checks, and builds. Use behavior and edge-case tests for substantive logic; do not add implementation-mirroring tests for trivial documentation changes.
 3. Reviewer independently inspects the exact diff, relevant spec requirements, failure paths, data integrity, money/date arithmetic, security, and test coverage. Return findings with severity, file/line, impact, and a concrete fix, or explicitly state no actionable findings. State checks actually run separately from checks reported by the coder.
 4. Coder fixes findings; reviewer reviews the changed diff. Repeat until there are no unresolved known defects in the step and required checks pass. Record any limitation or unavailable verification; never call untested work verified or promise an absence of all bugs.
 5. Stage only the reviewed files, inspect the staged diff, commit with a descriptive message, and record the commit and evidence in progress.md. A later documentation bookkeeping commit may record the final hash without creating a self-referential hash loop.
