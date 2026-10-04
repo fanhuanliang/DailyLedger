@@ -26,3 +26,10 @@ Not started.
 
 ## Stage 6 - VM rollout
 Not started; VM access and deployment details remain to be established.
+
+## Claude instruction update
+Scope: add Claude-specific orientation while retaining the AGENTS.md import.
+Coder: Codex. Reviewer: Claude Code (read-only).
+Starting commit: ba5b34f. Edit ownership: CLAUDE.md and tracking records.
+Checks: independent instruction consistency review and staged whitespace check; application tests not applicable.
+Status: Claude Code reviewed current instructions against AGENTS.md and approved with no actionable findings. Application tests not applicable. Commit follows staged whitespace and diff inspection; see git log for hash.
