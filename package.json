@@ -1,0 +1,14 @@
+{
+  "name": "dailyledger",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "test": "pnpm --filter @dailyledger/backend test && pnpm --filter @dailyledger/frontend test",
+    "typecheck": "pnpm -r typecheck",
+    "build": "pnpm -r build"
+  },
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=24 <25"
+  }
+}

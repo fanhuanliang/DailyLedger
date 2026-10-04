@@ -1,0 +1,6 @@
+{
+ "name":"@dailyledger/frontend", "private":true, "version":"0.1.0", "type":"module",
+ "scripts":{"dev":"vite","test":"vitest run","typecheck":"tsc --noEmit","build":"tsc --noEmit && vite build"},
+ "dependencies":{"react":"^19.2.4","react-dom":"^19.2.4","react-router-dom":"^7.14.1"},
+ "devDependencies":{"@types/react":"^19.2.14","@types/react-dom":"^19.2.3","@types/node":"^24.0.0","@vitejs/plugin-react":"^6.0.1","vite":"^8.0.4","vitest":"^4.1.4","typescript":"~6.0.2","jsdom":"^29.0.2","@testing-library/react":"^16.3.2","@testing-library/jest-dom":"^6.9.1","@testing-library/user-event":"^14.6.1","tailwindcss":"^3.4.19","postcss":"^8.5.9","autoprefixer":"^10.5.0"}
+}

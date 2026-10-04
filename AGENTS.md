@@ -41,7 +41,7 @@ Use the documented stack and layout unless the spec requires something different
 DailyLedger/
 ├── AGENTS.md / CLAUDE.md
 ├── doc/                 spec.md, plan.md, decisions.md, progress.md
-├── backend/             Node 20 + TypeScript, Express 5, better-sqlite3, Jest + supertest
+├── backend/             Node 24 LTS + TypeScript, Express 5, better-sqlite3, Jest + supertest
 │   └── src/  app.ts, index.ts, db/ (connection, migrations/), routes/, services/, middleware/, types/
 ├── frontend/            React 19 + Vite + TypeScript, Tailwind, React Router, Vitest + Testing Library
 │   └── src/  api/, components/, hooks/, pages/ (one per tab), types/, lib/ (money/date helpers)

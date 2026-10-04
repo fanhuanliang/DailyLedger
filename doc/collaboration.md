@@ -22,3 +22,6 @@ Baseline: 23fbd69. Reviewed changes: AGENTS.md section 13, CLAUDE.md quality-gat
 
 ## Owner conflict-decision update
 Baseline: bb12978. Claude freshly reviewed AGENTS.md sections 13/14, CLAUDE.md guidance, and tracking entry; APPROVED with no actionable findings. Conflicts and suspected material bias now require disclosure and the owner's final decision; independent work and truthful quality gates remain intact.
+
+## Stage 1 foundation
+Baseline 6699c91. Claude reviewed foundation, found unconditional timezone overwrite; Codex accepted, added Red/Green regression, and fixed initial seeding. Claude re-read changed files and APPROVED. Reviewer inspected code but did not execute tests; Codex executed backend6/frontend2, types/builds, compose config and actual Edge viewport checks. Container build/run deferred because daemon unavailable.
