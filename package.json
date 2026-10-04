@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "test": "pnpm --filter @dailyledger/backend test && pnpm --filter @dailyledger/frontend test",
+    "test": "pnpm --filter @dailyledger/backend test && pnpm --filter @dailyledger/frontend test && pnpm --filter @dailyledger/backend build && pnpm --filter @dailyledger/mcp-server test",
     "typecheck": "pnpm -r typecheck",
     "build": "pnpm -r build"
   },

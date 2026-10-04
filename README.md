@@ -27,3 +27,5 @@ Stage 2 core ledger: accounts (opening balance/date, archive, credit-card signed
 Docker build/run verification and real backup/restore remain pending. Backup must use SQLite's consistent backup API; do not copy a live WAL database file alone. A runnable backup/restore procedure will be added and tested before rollout. Original statements and receipts must not be stored by the app.
 
 HOUSEHOLD_TIMEZONE seeds a new database only; subsequent starts preserve its saved timezone and revision. Changes to an existing household timezone need an explicit revision-aware settings change, not a server restart. A settings editor is not yet implemented.
+
+Stage3 imports/MCP: normalized immutable previews, duplicate hints, approved atomic commits and idempotent retries; shared period summary endpoint. Bridge setup and review rules: mcp-server/README.md. Real production client connection remains pending VM rollout.

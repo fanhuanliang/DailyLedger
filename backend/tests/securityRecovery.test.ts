@@ -62,4 +62,14 @@ describe('Browser session recovery and bounded security state', () => {
       expect(db.prepare('SELECT count(*) AS n FROM categories').get()).toEqual(originalCategoryCount);
     } finally { db.close(); }
   });
+
+  test('rejects an explicitly invalid MCP bearer on reads instead of treating it as a browser', async () => {
+    const db = openDatabase(':memory:');
+    try {
+      const app=createApp(db,{mcpToken:'correct-token'});
+      const response=await request(app).get('/api/v1/accounts').set('Authorization','Bearer incorrect-token');
+      expect(response.status).toBe(403);expect(response.body.error.code).toBe('MCP_AUTH_FAILED');
+      expect((await request(app).get('/api/v1/accounts')).status).toBe(200);
+    } finally {db.close();}
+  });
 });

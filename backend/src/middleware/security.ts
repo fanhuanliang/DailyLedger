@@ -80,6 +80,10 @@ export class SecurityContext {
 
   guard = (req: Request, _res: Response, next: NextFunction): void => {
     if (this.isMcpAuthorized(req)) { next(); return; }
+    if (req.headers.authorization !== undefined) {
+      next(forbidden('Invalid MCP credential.', 'MCP_AUTH_FAILED'));
+      return;
+    }
     if (req.headers.origin && req.headers.origin !== this.options.appOrigin) {
       next(forbidden('Cross-site requests are not allowed.', 'CROSS_SITE_BLOCKED'));
       return;

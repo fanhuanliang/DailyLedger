@@ -1,3 +1,4 @@
+import { importReview } from './migrations/004-import-review';
 import { ledgerGuards } from './migrations/003-ledger-guards';
 import Database from 'better-sqlite3';
 import { mkdirSync } from 'node:fs';
@@ -19,7 +20,7 @@ export function openDatabase(path: string, initialTimezone = 'America/Los_Angele
       updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     )`);
     db.transaction(() => {
-      for (const migration of [initialSettings, ledgerCore, ledgerGuards]) {
+      for (const migration of [initialSettings, ledgerCore, ledgerGuards, importReview]) {
         if (!db.prepare('SELECT version FROM schema_migrations WHERE version = ?').get(migration.version)) {
           db.exec(migration.sql);
           if (migration.version === 1) db.prepare('UPDATE settings SET household_timezone = ? WHERE id = 1').run(initialTimezone);

@@ -115,6 +115,8 @@ function validateCore(db: Database.Database, input: TransactionInput, existing?:
   return { date, description, type, amountCents, accountId, destinationAccountId: null, categoryId, notes };
 }
 
+export function validateTransactionInput(db: Database.Database, input: TransactionInput): void { validateCore(db, input); }
+
 function rowToTransaction(row: Record<string, unknown>): Transaction {
   return row as unknown as Transaction;
 }

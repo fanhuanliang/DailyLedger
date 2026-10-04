@@ -1,6 +1,7 @@
 packages:
   - backend
   - frontend
+  - mcp-server
 allowBuilds:
   better-sqlite3: true
   esbuild: true

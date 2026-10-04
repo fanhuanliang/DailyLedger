@@ -1,3 +1,5 @@
+import { reportsRouter } from './routes/reports';
+import { importsRouter } from './routes/imports';
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 import type Database from 'better-sqlite3';
@@ -38,6 +40,8 @@ export function createApp(db: Database.Database, options: AppOptions = {}) {
 
   app.get('/api/v1/csrf-token', security.csrfTokenHandler);
   app.use('/api/v1', security.guard);
+  app.use('/api/v1/reports', reportsRouter(db));
+  app.use('/api/v1/imports', importsRouter(db));
   app.use('/api/v1/settings', settingsRouter(db));
   app.use('/api/v1/accounts', accountsRouter(db));
   app.use('/api/v1/categories', categoriesRouter(db));
@@ -48,6 +52,10 @@ export function createApp(db: Database.Database, options: AppOptions = {}) {
   app.use((error: unknown, _req: Request, res: Response, _next: NextFunction) => {
     if (error instanceof ApiError) {
       res.status(error.status).json({ error: { code: error.code, message: error.message, ...(error.fields ? { fields: error.fields } : {}) } });
+      return;
+    }
+    if (error && typeof error === 'object' && 'status' in error && error.status === 413 && 'type' in error && error.type === 'entity.too.large') {
+      res.status(400).json({error:{code:'REQUEST_TOO_LARGE',message:'Request exceeds the JSON size limit. Use a smaller batch.'}});
       return;
     }
     if (isBodyParserSyntaxError(error)) {
