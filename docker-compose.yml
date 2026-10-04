@@ -9,6 +9,9 @@ services:
       PORT: 5010
       DB_PATH: /app/data/ledger.db
       HOUSEHOLD_TIMEZONE: ${HOUSEHOLD_TIMEZONE:-America/Los_Angeles}
+      APP_ORIGIN: ${APP_ORIGIN:-http://${BIND_IP:-127.0.0.1}:${APP_PORT:-8095}}
+      COOKIE_SECURE: ${COOKIE_SECURE:-false}
+      MCP_TOKEN: ${MCP_TOKEN:-}
     volumes:
       - ledger_data:/app/data
     restart: unless-stopped

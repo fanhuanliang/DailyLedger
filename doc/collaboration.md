@@ -25,3 +25,25 @@ Baseline: bb12978. Claude freshly reviewed AGENTS.md sections 13/14, CLAUDE.md g
 
 ## Stage 1 foundation
 Baseline 6699c91. Claude reviewed foundation, found unconditional timezone overwrite; Codex accepted, added Red/Green regression, and fixed initial seeding. Claude re-read changed files and APPROVED. Reviewer inspected code but did not execute tests; Codex executed backend6/frontend2, types/builds, compose config and actual Edge viewport checks. Container build/run deferred because daemon unavailable.
+
+## Stage 2 role swap
+Stage 1 commit e93f7f5. Claude owns core-ledger edits; Codex independently reviews. No concurrent implementation writers. Claude must return ownership and request review before any commit.
+
+### Stage 2 coding handoff
+Claude implemented accounts/categories/transactions (backend services, routes, migration 002, CSRF/session/MCP write-security middleware) and the Accounts/Categories/Records frontend pages/hooks/API client, test-first, against the e93f7f5 baseline. Full evidence, exact files, acceptance-criteria coverage, and disclosed limitations (Docker config not re-verified this session, no real browser viewport check, in-memory session store) are recorded in doc/progress.md under "Stage 2 / step 1 - Core ledger handoff". Root-level `pnpm test`/`typecheck`/`build` all pass (backend 53 tests, frontend 24 tests). No commit was made. Ownership returns to Codex for independent review of the exact diff per AGENTS.md §12/§13; Claude will not edit these files again until review concludes or Codex hands ownership back with requested fixes.
+
+### Stage 2 independent review and interruption - 2026-10-03
+Reviewer: Codex. Baseline e93f7f5; tracked and untracked Stage 2 implementation inspected. Disposition CHANGES REQUIRED for financial arithmetic/result safety, opening-date history exclusion, validation and logging privacy, incomplete Accounts UI, pagination, CSRF recovery, mutation failure UX, household date defaults, schema constraints and required browser checks. Root verified a formatter counterexample: 9007199254740990 cents displayed as 90071992547409.91 with division/toFixed, instead of .90. Findings handed to Claude with exclusive writer ownership and genuine regression Red required before fixes.
+Owner approved retaining initial implementation and honestly recording invalid original TDD evidence; no review gate was waived. Claude made partial fixes and added regression tests, but CLI session c3e1f5d8-1c36-4b73-9949-ca3d7cda4a8f exited with HTTP 429/session limit, reset reported 11 p.m. America/Los_Angeles, before handoff. No teammate disagreement was reported. No commit was made. Codex independently executed saved-state tests (backend72/frontend28 passing) and Compose/daemon checks. Further review and pending fixes are required; approval has not been granted. See latest progress checkpoint for exact remaining work.
+
+## End-of-day shared handoff
+On owner request, stop for October 3. Both teammates must read doc/journal-2026-10-03.md with the shared rules and latest tracking entries before resuming. No active coding writer; confirm ownership and reviewer availability tomorrow.
+
+## October 4 role confirmation
+Owner assigns Codex exclusive coding and Claude read-only independent review. Dedicated CLI availability confirmed. Resume Stage 2 security fixes first; preserve existing working tree and review gates.
+
+October4 security substep: Claude returned APPROVED after static inspection with no actionable defects, no disagreement. It ran no tests (read-only); Codex ran focused frontend9/backend10, types/build. Approval applies only to security substep, not whole unfinished Stage2.
+October4 pagination substep: Claude APPROVED static review with no actionable findings or disagreement. Codex executed full backend78/frontend36, types/build. WholeStage2 remains incomplete.
+October4 Accounts substep: Claude APPROVED after static inspection, no actionable defects or disagreement; noted optional defensive undefined branch. Codex executed frontend41/backend79, types/build. WholeStage2 still incomplete.
+October4 remaining ledger review CHANGES REQUIRED: Claude found Records destination select incorrectly mapped sourceOptions. Codex agrees; no owner conflict. Added real regression before fix: archived transfer destination expected a2, actual empty;1 failed/7 passed. Fixed destinationOptions mapping; verification and re-review pending. Other reviewed remaining changes found sound; wholeStage2 approval still pending.
+October4 wholeStage2 final APPROVED by Claude after static complete-file inspection and completed post-fix check report. Baseline e93f7f5; no actionable known findings or disagreement. Reviewer did not execute tests or Git diff; Codex ran backend90/frontend49, strict types/build and isolated browser desktop1440/phone375. Docker/VM/backup and future stages remain pending. Optional unused percentage helper reviewed only as future Stage4 code, not used in current money paths. Approval covers current Stage2 code; local commit follows whitespace/staged inspection.
