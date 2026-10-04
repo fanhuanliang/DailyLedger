@@ -170,6 +170,16 @@ The independent reviewer is a required guardrail, not a courtesy approval. Passi
 
 Reviewer result must be APPROVED, CHANGES REQUIRED, or BLOCKED, with the reviewed baseline/diff, checks actually performed, findings, and limitations recorded in doc/collaboration.md. Separate defect findings from optional suggestions; preference-only comments must not be presented as correctness defects or force unnecessary rewrites.
 
-All actionable findings remain blocking until fixed and independently re-reviewed. Optional suggestions may be documented for later. Missing required verification means BLOCKED, not approval. The coder cannot approve their own step or silently waive a reviewer finding. If agents disagree, use the spec and reproducible evidence; ask the owner only for a genuine product tradeoff or unresolved decision.
+All actionable findings remain blocking until fixed and independently re-reviewed. Optional suggestions may be documented for later. Missing required verification means BLOCKED, not approval. The coder cannot approve their own step or silently waive a reviewer finding. If agents disagree, disclose the conflict to the owner with both positions and evidence, and ask for the owner's final decision under section 14. Do not silently settle it by agent consensus.
 
 Approval applies to the reviewed changes only. Any subsequent implementation change requires another review and applicable checks before commit. Recording the review's result or final commit reference in tracking files is bookkeeping; it does not authorize additional code changes. This is a human/agent process gate, not an installed Git hook or CI enforcement mechanism.
+
+## 14. Owner decides conflicts and possible bias
+
+Tell the owner when Codex and Claude disagree on a finding, implementation approach, requirement interpretation, or tradeoff; when project instructions conflict; or when a suspected bias materially affects a recommendation. Ask for the owner's final decision before implementing or committing the disputed choice. Routine undisputed work within the agreed spec may continue; pause only work dependent on that decision.
+
+Present the issue neutrally: the disputed question, each teammate's position and evidence, realistic options with benefits/risks, uncertainties, and a concise decision question. Label recommendations as recommendations. Distinguish reproducible facts from assumptions and preferences. Identify possible anchoring, confirmation bias, agreement pressure, or technology preference when relevant; do not claim to detect every bias or portray agent agreement as independent proof.
+
+Neither coder nor reviewer has authority to override the owner on product choices. Do not suppress the other viewpoint, pressure the owner, or assume silence is agreement. Even if evidence resolves a reported dispute, show the resolution and ask the owner to confirm the final choice.
+
+Record the owner's actual decision and rationale in doc/decisions.md and the review resolution in doc/collaboration.md. Apply any approved requirement change consistently to the spec, plan, tests, and implementation within its scope. A product decision does not convert a failing check into a passing one: fix the behavior or accurately record the remaining limitation, re-run applicable checks, and obtain independent review. Never falsely claim a defect or verification blocker is resolved.

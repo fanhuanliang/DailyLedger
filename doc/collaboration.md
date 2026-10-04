@@ -19,3 +19,6 @@ Claude read the current rules and approved Red/Green/Refactor, recorded failure 
 
 ## Reviewer quality gate update
 Baseline: 23fbd69. Reviewed changes: AGENTS.md section 13, CLAUDE.md quality-gate guidance, and tracking entry. Claude independently read the current files, checked consistency with sections 9 and 12, and returned APPROVED with no actionable findings. Documentation only; application checks not applicable. No Git hook or CI gate is claimed.
+
+## Owner conflict-decision update
+Baseline: bb12978. Claude freshly reviewed AGENTS.md sections 13/14, CLAUDE.md guidance, and tracking entry; APPROVED with no actionable findings. Conflicts and suspected material bias now require disclosure and the owner's final decision; independent work and truthful quality gates remain intact.

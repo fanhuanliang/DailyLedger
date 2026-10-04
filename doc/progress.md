@@ -47,3 +47,10 @@ Coder: Codex. Reviewer: Claude Code (read-only).
 Starting commit: 23fbd69. Owned files: AGENTS.md, CLAUDE.md and tracking records.
 Checks: independent instruction review and staged diff/whitespace inspection; app tests not applicable to documentation.
 Status: APPROVED by Claude Code after fresh consistency review, with no actionable findings. Documentation checks precede commit; application tests not applicable.
+
+## Owner conflict-decision update
+Scope: require disclosure and owner decisions for teammate/instruction conflicts and suspected material bias.
+Coder: Codex. Reviewer: Claude Code (read-only).
+Starting commit: bb12978. Owned files: AGENTS.md, CLAUDE.md and tracking records.
+Checks: instruction consistency review and staged whitespace inspection; documentation-only, app tests not applicable.
+Status: APPROVED by Claude Code, no actionable findings. Documentation-only; staged whitespace check before commit, no application tests claimed.
