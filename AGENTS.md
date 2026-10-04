@@ -156,3 +156,20 @@ Use the installed Claude Code CLI for direct prompts and replies. Reuse the dedi
 Keep doc/progress.md and doc/decisions.md current. Save durable reviewer findings, resolutions, and the collaboration session ID in doc/collaboration.md so either agent can resume. Session IDs are context identifiers, never credentials. Provide only project-relevant context to the other agent; do not send secrets or original financial documents.
 
 Quality target: all agreed v1 requirements implemented, no unresolved known defects, relevant automated and manual checks passed, and remaining limitations disclosed. Final rollout requires functional desktop/mobile verification, consistent reports, import retry safety, history-preserving recurring updates, and a real backup/restore check. Do not represent a polished UI or passing unit tests alone as a finished app.
+
+## 13. Reviewer quality gate
+
+The independent reviewer is a required guardrail, not a courtesy approval. Passing tests alone is insufficient. Check each applicable area and record evidence or a justified not-applicable result:
+
+- Correctness and scope: behavior matches the spec, edge cases and failure paths are handled, and the step introduces no unauthorized features or regressions.
+- Financial and data integrity: exact cents, correct signs/dates, atomic writes, migration safety, revision conflicts, retry/duplicate behavior, and preservation of existing history.
+- Maintainability: clear names, cohesive small functions, appropriate separation of routes/services/UI, explicit types, understandable control flow, and no unnecessary duplication, dead code, or speculative abstractions.
+- Security and privacy: server validation, authorization/CSRF boundaries, safe query construction, secret handling, logging, and document-retention rules.
+- Tests and verification: meaningful assertions, actual Red/Green evidence, relevant regression coverage, appropriate real integrations, and reported type-check/build/manual-check outcomes. Do not approve tests that mock away the guarantee they claim to verify.
+- User experience when affected: clear validation/errors, usable loading/empty states, keyboard and accessible labels, and phone/desktop behavior.
+
+Reviewer result must be APPROVED, CHANGES REQUIRED, or BLOCKED, with the reviewed baseline/diff, checks actually performed, findings, and limitations recorded in doc/collaboration.md. Separate defect findings from optional suggestions; preference-only comments must not be presented as correctness defects or force unnecessary rewrites.
+
+All actionable findings remain blocking until fixed and independently re-reviewed. Optional suggestions may be documented for later. Missing required verification means BLOCKED, not approval. The coder cannot approve their own step or silently waive a reviewer finding. If agents disagree, use the spec and reproducible evidence; ask the owner only for a genuine product tradeoff or unresolved decision.
+
+Approval applies to the reviewed changes only. Any subsequent implementation change requires another review and applicable checks before commit. Recording the review's result or final commit reference in tracking files is bookkeeping; it does not authorize additional code changes. This is a human/agent process gate, not an installed Git hook or CI enforcement mechanism.
