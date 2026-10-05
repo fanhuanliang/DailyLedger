@@ -1,3 +1,4 @@
+import { GoalsPage } from './pages/GoalsPage';
 import { BudgetsPage } from './pages/BudgetsPage';
 import { Route, Routes, Link } from 'react-router-dom';
 import { Layout, pathForSheet } from './components/Layout';
@@ -7,7 +8,7 @@ import { CategoriesPage } from './pages/CategoriesPage';
 import { RecordsPage } from './pages/RecordsPage';
 import { ComingSoonPage } from './pages/ComingSoonPage';
 
-const COMING_SOON_SHEETS = ['Goals', 'Reminders', 'Reports'] as const;
+const COMING_SOON_SHEETS = ['Reminders', 'Reports'] as const;
 
 export function App() {
   return (
@@ -18,6 +19,7 @@ export function App() {
         <Route path={pathForSheet('Accounts')} element={<AccountsPage />} />
         <Route path={pathForSheet('Categories')} element={<CategoriesPage />} />
         <Route path={pathForSheet('Budgets')} element={<BudgetsPage />} />
+        <Route path={pathForSheet('Goals')} element={<GoalsPage />} />
         {COMING_SOON_SHEETS.map((sheet) => (
           <Route key={sheet} path={pathForSheet(sheet)} element={<ComingSoonPage name={sheet} />} />
         ))}

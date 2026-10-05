@@ -1,3 +1,4 @@
+import { savingsGoals } from './migrations/006-savings-goals';
 import { annualBudgets } from './migrations/005-annual-budgets';
 import { importReview } from './migrations/004-import-review';
 import { ledgerGuards } from './migrations/003-ledger-guards';
@@ -21,7 +22,7 @@ export function openDatabase(path: string, initialTimezone = 'America/Los_Angele
       updated_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
     )`);
     db.transaction(() => {
-      for (const migration of [initialSettings, ledgerCore, ledgerGuards, importReview, annualBudgets]) {
+      for (const migration of [initialSettings, ledgerCore, ledgerGuards, importReview, annualBudgets, savingsGoals]) {
         if (!db.prepare('SELECT version FROM schema_migrations WHERE version = ?').get(migration.version)) {
           db.exec(migration.sql);
           if (migration.version === 1) db.prepare('UPDATE settings SET household_timezone = ? WHERE id = 1').run(initialTimezone);

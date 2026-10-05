@@ -75,3 +75,15 @@ test('budget MCP tools read/save/copy one selected calendar year with revision p
   assert.deepEqual(data(await client.callTool({name:'get_budget',arguments:{year:2026}})),saved);
   const stale=await client.callTool({name:'save_budget',arguments:{year:2026,expectedRevision:null,overallLimitCents:1000,categoryLimits:[]}});assert.equal(stale.isError,true);
 });
+
+test('goal tools share current savings progress and revision-safe lifecycle without financial writes',async()=>{
+ const savings=createAccount(db,{name:'Goal savings',type:'savings',openingDate:'2026-01-01',openingBalanceCents:12000});
+ const count=db.prepare('SELECT count(*) AS n FROM transactions').get().n;
+ const created=data(await client.callTool({name:'create_goal',arguments:{name:'Synthetic goal',targetCents:10000,savingsAccountId:savings.id,deadline:null}}));assert.equal(created.percentage,100);assert.equal(created.surplusCents,2000);
+ const duplicate=await client.callTool({name:'create_goal',arguments:{name:'Duplicate',targetCents:10000,savingsAccountId:savings.id}});assert.equal(duplicate.isError,true);
+ const updated=data(await client.callTool({name:'update_goal',arguments:{id:created.id,name:'Updated goal',expectedRevision:1}}));assert.equal(updated.revision,2);
+ const completed=data(await client.callTool({name:'complete_goal',arguments:{id:created.id,expectedRevision:2}}));assert.equal(completed.status,'completed');
+ const archived=data(await client.callTool({name:'archive_goal',arguments:{id:created.id,expectedRevision:3}}));assert.equal(archived.status,'archived');
+ const rows=data(await client.callTool({name:'list_goals',arguments:{includeArchived:true}}));assert.ok(rows.some(row=>row.id===created.id));
+ assert.equal(db.prepare('SELECT count(*) AS n FROM transactions').get().n,count);
+});
