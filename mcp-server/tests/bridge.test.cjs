@@ -67,3 +67,11 @@ test('manual entry, revision-aware correction and summary use the shared API',as
   const summary=data(await client.callTool({name:'get_summary',arguments:{dateFrom:'2026-01-01',dateTo:'2026-01-31'}}));assert.deepEqual(summary,{dateFrom:'2026-01-01',dateTo:'2026-01-31',incomeCents:50000,netExpensesCents:2000,moneyLeftOverCents:48000,recordCount:2});
   const categories=data(await client.callTool({name:'list_categories',arguments:{includeArchived:true}}));assert.ok(categories.some(row=>row.id===salary.id));
 });
+
+test('budget MCP tools read/save/copy one selected calendar year with revision protection',async()=>{
+  const empty=data(await client.callTool({name:'get_budget',arguments:{year:2026}}));assert.equal(empty.revision,null);
+  const saved=data(await client.callTool({name:'save_budget',arguments:{year:2026,expectedRevision:null,overallLimitCents:0,categoryLimits:[]}}));assert.equal(saved.overallLimitCents,0);assert.equal(saved.overallRemainingCents,-2000);
+  const copied=data(await client.callTool({name:'copy_budget',arguments:{year:2027,sourceYear:2026,overwrite:false,expectedRevision:null}}));assert.equal(copied.year,2027);assert.equal(copied.overallLimitCents,0);
+  assert.deepEqual(data(await client.callTool({name:'get_budget',arguments:{year:2026}})),saved);
+  const stale=await client.callTool({name:'save_budget',arguments:{year:2026,expectedRevision:null,overallLimitCents:1000,categoryLimits:[]}});assert.equal(stale.isError,true);
+});

@@ -18,3 +18,7 @@ table{width:100%;min-width:550px;border-collapse:collapse;margin:20px 0;backgrou
 caption{text-align:left;padding:10px 0}th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.5px;background:#e8eee4}
 th,td{padding:12px 14px;border-bottom:1px solid #e3e7dc;vertical-align:top}td button{font-size:12px;padding:6px 10px;margin:0 6px 6px 0}td{overflow-wrap:anywhere}
 @media(max-width:620px){form.panel{grid-template-columns:minmax(0,1fr);gap:13px}.panel{margin-bottom:18px}table{min-width:620px}th,td{padding:10px 12px}}
+
+.wide-field { grid-column: 1 / -1; }
+input[type=checkbox] { width: auto; display: inline-block; margin-right: .5rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }

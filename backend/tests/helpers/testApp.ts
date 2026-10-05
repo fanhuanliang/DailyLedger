@@ -17,6 +17,7 @@ export function buildAuthorizedTestApp() {
     agent: {
       get: (url: string) => withAuth(base.get(url)),
       post: (url: string) => withAuth(base.post(url)),
+      put: (url: string) => withAuth(base.put(url)),
       patch: (url: string) => withAuth(base.patch(url)),
       delete: (url: string) => withAuth(base.delete(url)),
     },

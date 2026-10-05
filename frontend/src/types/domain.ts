@@ -51,3 +51,8 @@ export interface AccountSummary extends Account {
   balance_cents: number | 'not_available';
   balance_as_of: string;
 }
+
+export interface AnnualBudget {
+  year:number; revision:number|null; overallLimitCents:number|null; netSpendingCents:number; overallRemainingCents:number|null;
+  categoryRows:{categoryId:string;name:string;archivedAt:string|null;limitCents:number|null;netSpendingCents:number;remainingCents:number|null}[];
+}
