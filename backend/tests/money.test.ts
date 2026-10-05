@@ -25,7 +25,7 @@ describe('money: integer-cent parsing and validation', () => {
   test('roundHalfUpCents applies half-up rounding for percentage adjustments', () => {
     expect(roundHalfUpCents(500000, 3)).toBe(515000);
     expect(roundHalfUpCents(100, 0.5)).toBe(101);
-    expect(roundHalfUpCents(100, -0.5)).toBe(99);
+    expect(roundHalfUpCents(100, -0.5)).toBe(100);
   });
 
   test('formatCentsAsDollars is exact even near Number.MAX_SAFE_INTEGER (no float collisions)', () => {
@@ -38,4 +38,18 @@ describe('money: integer-cent parsing and validation', () => {
     expect(() => parseCentsFromInput('99999999999999999.99')).toThrow();
     expect(() => roundHalfUpCents(Number.MAX_SAFE_INTEGER, 50)).toThrow();
   });
+});
+
+describe('recurring percentage regression: final amount half-up and small percentages',()=>{
+ test('negative half-cent adjustment rounds the resulting amount half up',()=>{expect(roundHalfUpCents(1,-50)).toBe(1);});
+ test('retains percentage precision below six decimal places',()=>{expect(roundHalfUpCents(1000000000,0.0000004)).toBe(1000000004);});
+});
+
+
+test('exact decimal percentage strings preserve long precision and reject unsupported input',()=>{
+ expect(roundHalfUpCents(1000000000,'0.0000004')).toBe(1000000004);
+ expect(roundHalfUpCents(1,'-50')).toBe(1);
+ expect(roundHalfUpCents(500000,'3')).toBe(515000);
+ expect(roundHalfUpCents(1,'50')).toBe(2);
+ for(const percent of ['NaN','Infinity','abc','1e9999','-101'])expect(()=>roundHalfUpCents(100,percent)).toThrow();
 });

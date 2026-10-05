@@ -19,22 +19,25 @@ export function isSafeCents(value: number): boolean {
   return Number.isSafeInteger(value) && value >= 0;
 }
 
-export function roundHalfUpCents(baseCents: number, percent: number): number {
-  if (!Number.isSafeInteger(baseCents)) throw new Error('baseCents must be a safe integer.');
-  if (!Number.isFinite(percent)) throw new Error('percent must be a finite number.');
-  // Exact arithmetic: represent percent as an integer numerator over a fixed denominator
-  // so no floating-point multiplication or division touches the cent amount.
-  const PERCENT_SCALE = 1_000_000n;
-  const percentScaled = BigInt(Math.round(percent * 1_000_000));
-  const numerator = BigInt(baseCents) * percentScaled;
-  const denominator = PERCENT_SCALE * 100n;
-  const quotient = numerator / denominator;
-  const remainder = numerator % denominator;
-  const halfUp = (remainder * 2n >= denominator && numerator >= 0n) || (remainder * 2n <= -denominator && numerator < 0n);
-  const delta = halfUp ? quotient + (numerator >= 0n ? 1n : -1n) : quotient;
-  return toSafeNumber(BigInt(baseCents) + delta);
+export function roundHalfUpCents(baseCents: number, percent: number | string): number {
+  if (!Number.isSafeInteger(baseCents) || baseCents < 0) throw new Error('baseCents must be nonnegative safe integer cents.');
+  if (typeof percent === 'number' && !Number.isFinite(percent)) throw new Error('percent must be finite.');
+  const text = String(percent).trim();
+  if (text.length > 128) throw new Error('Percentage is too long.');
+  const match = /^([+-]?)(\d+)(?:\.(\d+))?(?:e([+-]?\d+))?$/i.exec(text);
+  if (!match) throw new Error('Percentage must be a decimal number.');
+  const fraction = match[3] ?? '';
+  const exponent = Number(match[4] ?? 0) - fraction.length;
+  if (!Number.isSafeInteger(exponent) || Math.abs(exponent) > 256) throw new Error('Percentage precision is outside the supported range.');
+  let numerator = BigInt(match[2]! + fraction) * (match[1] === '-' ? -1n : 1n);
+  const scale = exponent < 0 ? 10n ** BigInt(-exponent) : 1n;
+  if (exponent > 0) numerator *= 10n ** BigInt(exponent);
+  const denominator = 100n * scale;
+  const finalNumerator = BigInt(baseCents) * (denominator + numerator);
+  if (finalNumerator < 0n) throw new Error('Adjusted amount must not be negative.');
+  const rounded = (finalNumerator + denominator / 2n) / denominator;
+  return toSafeNumber(rounded);
 }
-
 function groupThousands(digits: string): string {
   return digits.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }

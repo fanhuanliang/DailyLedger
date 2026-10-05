@@ -42,7 +42,7 @@ Fields: name, target amount, savings account, optional deadline. V1 default: one
 
 Support weekly, every two weeks, monthly, and yearly income/expense schedules. Display due and overdue unconfirmed occurrences, plus upcoming occurrences for the next 30 days. No transaction is created automatically. Confirm opens an editable entry form; saving links exactly one record to the occurrence. Allow skipping an occurrence. A confirmed occurrence shows its linked record; deleting that record marks it unconfirmed again.
 
-Recurring amount edits create an effective-date version and do not rewrite transactions. Provide fixed-amount and percentage-change input, previewing the resulting amount and date before saving. Round percentage changes to nearest cent, half up. Example: $5,000 plus 3% becomes $5,150. Schedule changes preserve confirmed/skipped occurrences and regenerate only unconfirmed future occurrences from the effective date. Monthly/yearly days missing from a month use that month's final day. Ended schedules retain history.
+Recurring amount edits create an effective-date version and do not rewrite transactions. Provide fixed-amount and percentage-change input, previewing the resulting amount and date before saving. Round the final amount after a percentage change to the nearest cent, half up (not the adjustment separately). For example, $1.00 reduced by 0.5% becomes $1.00. Example: $5,000 plus 3% becomes $5,150. Schedule changes preserve confirmed/skipped occurrences and regenerate only unconfirmed future occurrences from the effective date. Monthly/yearly days missing from a month use that month's final day. Ended schedules retain history.
 
 ### Reports
 
