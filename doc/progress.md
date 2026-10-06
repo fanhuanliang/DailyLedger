@@ -1,6 +1,6 @@
 # Implementation progress
 
-Current checkpoint (October5): HEAD418b16f. Annual budgets0ea146c, savings goals4ad81cd, exact percentage correction418b16f are independently reviewed and committed. Recurring/reminders implemented and checked but UNCOMMITTED: Claude429 session limit interrupted required final review, reset reported2:20pm America/Los_Angeles. Stage5 report tests only are intentionally Red. Read doc/journal-2026-10-05.md before resuming.
+Current checkpoint (October5): Stage4 reviewed commit08e6b1a and Stage5 reviewed commit48c9376 complete locally. Stage6 backup/restore and Docker preparation pass local checks; independent Claude recovery review APPROVED. Ubuntu confirmed; production VM address, backup destination/retention and deployment authorization remain pending. Read the latest journal entries before resuming.
 
 ## Coordination setup
 
@@ -21,13 +21,13 @@ Complete; reviewed commit3e7a6e0. AC2-5 money rules and AC15 stale edits tested;
 Complete; independently reviewed commit8f7755f. Backend103/frontend49/MCP5 tests and all types/builds passed. Production MCP connection deferred to Stage6.
 
 ## Stage 4 - Planning
-Not started.
+Complete locally: budgets0ea146c, goals4ad81cd, arithmetic418b16f, reminders08e6b1a; independently reviewed.
 
 ## Stage 5 - Insights
-Not started.
+Complete locally; independently reviewed commit48c9376. Reports, year comparisons, charts and filtered CSV verified.
 
 ## Stage 6 - VM rollout
-Not started; VM access and deployment details remain to be established.
+Local preparation in progress; backend152 tests and Docker recovery passed. Ubuntu VM deployment and actual home-network checks pending.
 
 ## Claude instruction update
 Scope: add Claude-specific orientation while retaining the AGENTS.md import.
@@ -196,3 +196,9 @@ Stage4 reviewed commit08e6b1a complete. Stage5 baseline08e6b1a: backend report5R
 Stage5 complete implementation verification: serial FULL backend25suites149passed, frontend14files60passed, MCP9 real stdio tests; all3types/build passed. Earlier backend1000session test timeout under concurrent load disclosed; rerun serial with original timeout passed, no assertions changed. Isolated Edge browser1440/375 PASS current-month and prior-calendar-year totals, negative refunds/bars/detail, card debt/balances, current goals/reminders, partial-year comparison, filtered CSV download/formula escaping, no page overflow/Add action visible and zero financial writes. Browser strict locator for identical prior-year income/leftover corrected (test setup, not app defect). Desktop/phone screenshots inspected. Stage5 final review pending.
 
 Stage5 COMPLETE locally: Claude APPROVED scoped source review, no blocking findings/disagreement, 149backend/60frontend/9MCP/all3types/build and1440/375 isolatedbrowser pass. Covers local AC6/7 and reuse ofAC2-5; end-to-end homeLAN/VM/backup parts remain Stage6. Reviewed commit follows explicit staging; separate maintenance work excluded. Optional extreme-range resource cap left for later.
+
+Stage5 reviewed commit48c9376 complete. Stage6 local preparation baseline48c9376: Codex coder/Claude reviewer; backup/restore CLI, restore-path Compose setting and runbook. Backup3genuine behavior Reds from scaffold (missing copy/overwrite/sourcevalidation), focused3Green, then richer verification preserved EVERY table including recurring confirmation/goals/budgets/import batch metadata from live WAL. Strict pragma unknown-return type error corrected, backend types/build passed. Initial Docker images built successfully; disposable validation stack loopback18095 healthy, API/proxy/migrations/browserCSRF/invalidbearer/crossOrigin/no-autotransaction/persistence-restart checks passed. Fresh maintenance image/container recovery verification pending. VM Ubuntu confirmed; address/ports/backup destination/retention/deployment authorization pending. No production data used, GitHub push or VM deployment.
+
+Stage6 local recovery Green: fullbackend26suites152pass; backendstrict types/build passed; frontend60/MCP9/allpackagechecks unchanged since reviewed Stage5. Fullsuite initially reported native SQLite error matcher failure only; missing source was correctly rejected with SQLITE_CANTOPEN but cross-Jest-VM native error did not satisfy realm-sensitive toThrow. Strengthened assertion to actual SQLITE_CANTOPEN plus no source/destination creation, full152passed. Real Docker rebuilt/start healthy, backup runningWAL to new file, stop/restore into new file, CONTAINER_DB_PATH switch/start, API comparison preserved IDs/records/balances/reports. Scoped local recovery review pending; real UbuntuVM/homeLAN/actualphone/backup destination still not verified.
+
+Stage6 local recovery Claude APPROVED sessionf1b2663b-0070-41d2-8dbe-d03829c4c18e/base48c9376. Independent static/native backup source inspection; no reviewer-executed suites. No blocking findings or disagreement. Optional OS wording corrected; stale review-strategy cadence handoff updated to reviewed fix08e6b1a. Crash-killed partial backup files may remain unpublished; no automatic sweep added. Fullbackend152/backendtypes/build and realDocker backup/restore/persistence evidence supplied; frontend60/MCP9 unchanged from Stage5. Isolated test containers stopped; synthetic volume retained. Production UbuntuVM/LAN/actualphone/MCP/off-volume backup/retention pending. Reviewed scoped commit follows; no push, deploy or real import.
