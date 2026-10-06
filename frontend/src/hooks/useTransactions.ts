@@ -23,7 +23,7 @@ export interface TransactionInput {
   notes?: string | null;
 }
 
-function toQuery(filters: TransactionFilters): string {
+export function transactionQuery(filters: TransactionFilters, includePage = true): string {
   const params = new URLSearchParams();
   if (filters.dateFrom) params.set('dateFrom', filters.dateFrom);
   if (filters.dateTo) params.set('dateTo', filters.dateTo);
@@ -31,7 +31,7 @@ function toQuery(filters: TransactionFilters): string {
   if (filters.categoryId) params.set('categoryId', filters.categoryId);
   if (filters.accountId) params.set('accountId', filters.accountId);
   if (filters.type) params.set('type', filters.type);
-  params.set('page', String(filters.page));
+  if (includePage) params.set('page', String(filters.page));
   return params.toString();
 }
 
@@ -45,7 +45,7 @@ export function useTransactions(filters: TransactionFilters) {
     setLoading(true);
     setError(null);
     try {
-      const result = await apiGet<Transaction[]>(`/transactions?${toQuery(filters)}`);
+      const result = await apiGet<Transaction[]>(`/transactions?${transactionQuery(filters)}`);
       setTransactions(result.data);
       setMeta(result.meta ?? null);
     } catch (err) {

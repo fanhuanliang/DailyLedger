@@ -1,7 +1,7 @@
 import { recurringRouter, remindersRouter } from './routes/recurring';
 import { goalsRouter } from './routes/goals';
 import { budgetsRouter } from './routes/budgets';
-import { reportsRouter } from './routes/reports';
+import { reportsRouter, exportsRouter } from './routes/reports';
 import { importsRouter } from './routes/imports';
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
@@ -48,6 +48,7 @@ export function createApp(db: Database.Database, options: AppOptions = {}) {
   app.use('/api/v1/goals', goalsRouter(db));
   app.use('/api/v1/budgets', budgetsRouter(db));
   app.use('/api/v1/reports', reportsRouter(db));
+  app.use('/api/v1/exports', exportsRouter(db));
   app.use('/api/v1/imports', importsRouter(db));
   app.use('/api/v1/settings', settingsRouter(db));
   app.use('/api/v1/accounts', accountsRouter(db));

@@ -37,3 +37,5 @@ Recurring support: template ended_on retains a calendar cutoff; immutable versio
 
 ## October 5 - Owner-directed efficient Claude reviews
 Use fresh scoped CLI sessions per independently reviewable step, compact review packets, and targeted reviewer checks under doc/review-strategy.md. Reuse only within that step; retire the oversized historical session. Do not automatically duplicate unchanged test/build/browser runs. Required TDD, independent review, stage checks, conflict decisions, and review-before-commit remain unchanged. Documentation update only; no Claude invocation, settings change, or application change.
+
+- 2026-10-05: Stage5 charts use accessible React/SVG horizontal bars with a zero baseline and negative-value support; no chart dependency is needed for simple monthly/category views. Detail tables provide exact cents. Added /reports/insights snapshot combines report values, full-calendar budgets, explicitly current goals and due/next30day reminders in one SQLite transaction; supporting snapshot endpoint documented. CSV exports share Records filters without pagination; original documents remain local.

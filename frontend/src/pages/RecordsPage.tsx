@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { PageHeading } from '../components/PageHeading';
 import { useAccounts } from '../hooks/useAccounts';
 import { useCategories } from '../hooks/useCategories';
-import { useTransactions, type TransactionFilters, type TransactionInput } from '../hooks/useTransactions';
+import { useTransactions, transactionQuery, type TransactionFilters, type TransactionInput } from '../hooks/useTransactions';
 import { useHouseholdToday } from '../hooks/useHouseholdToday';
 import { parseAmountInput, formatCentsAsDollars, centsToAmountInputValue } from '../lib/money';
 import { ApiError } from '../api/client';
@@ -122,6 +122,7 @@ export function RecordsPage() {
   return (
     <>
       <PageHeading title="Records" tagline="Every income, expense, refund, and transfer in one place." />
+      <a className="secondary-button" href={'/api/v1/exports/transactions.csv?' + transactionQuery(filters, false)}>Export filtered records CSV</a>
 
       <section className="panel">
         <h2>Filters</h2>

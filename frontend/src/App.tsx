@@ -7,9 +7,7 @@ import { DashboardPage } from './pages/DashboardPage';
 import { AccountsPage } from './pages/AccountsPage';
 import { CategoriesPage } from './pages/CategoriesPage';
 import { RecordsPage } from './pages/RecordsPage';
-import { ComingSoonPage } from './pages/ComingSoonPage';
-
-const COMING_SOON_SHEETS = ['Reports'] as const;
+import { ReportsPage } from './pages/ReportsPage';
 
 export function App() {
   return (
@@ -22,9 +20,7 @@ export function App() {
         <Route path={pathForSheet('Budgets')} element={<BudgetsPage />} />
         <Route path={pathForSheet('Goals')} element={<GoalsPage />} />
         <Route path={pathForSheet('Reminders')} element={<RemindersPage />} />
-        {COMING_SOON_SHEETS.map((sheet) => (
-          <Route key={sheet} path={pathForSheet(sheet)} element={<ComingSoonPage name={sheet} />} />
-        ))}
+        <Route path={pathForSheet('Reports')} element={<ReportsPage />} />
         <Route path="*" element={<section className="panel"><h1>Page not found</h1><Link to="/">Back to Dashboard</Link></section>} />
       </Route>
     </Routes>

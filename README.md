@@ -22,10 +22,18 @@ For VM home-network use, select an available APP_PORT, set BIND_IP to the VM's h
 
 Stage 1 foundation: navigation shell, database/settings migration, readiness and JSON 404 API, same-origin proxy, and Docker configuration.
 
-Stage 2 core ledger: accounts (opening balance/date, archive, credit-card signed balances shown as amount owed/card credit), categories (income/expense kind, unique active name, rename, archive), and transactions (manual income/expense/refund/transfer entry and edit, revision-conflict (409) protection, before-opening-date and archived-account rejection, filtering by date/text/category/account/type, pagination, newest-first sort). Dashboard, Budgets, Goals, Reminders, and Reports remain coming-soon placeholders with no fake totals; MCP imports, budgets, goals, and reminders are not implemented yet (later stages).
+Stage 2 core ledger: accounts (opening balance/date, archive, credit-card signed balances shown as amount owed/card credit), categories (income/expense kind, unique active name, rename, archive), and transactions (manual income/expense/refund/transfer entry and edit, revision-conflict (409) protection, before-opening-date and archived-account rejection, filtering by date/text/category/account/type, pagination, newest-first sort). Reviewed later steps add approved imports, annual budgets, savings goals and recurring reminders. Dashboard and Reports use real ledger calculations; see verification status in doc/progress.md before treating the build as deployment-ready.
 
 Docker build/run verification and real backup/restore remain pending. Backup must use SQLite's consistent backup API; do not copy a live WAL database file alone. A runnable backup/restore procedure will be added and tested before rollout. Original statements and receipts must not be stored by the app.
 
 HOUSEHOLD_TIMEZONE seeds a new database only; subsequent starts preserve its saved timezone and revision. Changes to an existing household timezone need an explicit revision-aware settings change, not a server restart. A settings editor is not yet implemented.
 
 Stage3 imports/MCP: normalized immutable previews, duplicate hints, approved atomic commits and idempotent retries; shared period summary endpoint. Bridge setup and review rules: mcp-server/README.md. Real production client connection remains pending VM rollout.
+
+## Planning and reports
+
+Annual budgets distinguish unset limits from zero and keep overall/category limits independent. Savings goals use current savings balances, with one active goal per account. Recurring reminders require confirmation before creating transactions; effective-date amount/schedule versions preserve financial history.
+
+Dashboard and Reports default to the household current month, with calendar-year and custom-date selection. Reports include charts and detail for net category spending, monthly trends, ending account balances, annual budgets, current goals and due reminders. Negative refunds remain visible. Annual budgets always show their full year; goals/reminders show current status, separately labeled from historical periods. Previous-year comparison defaults to matched year-to-date and offers selected-period/full-year modes, including leap-day clamping and incomplete-current-year labels.
+
+Export CSV from Records to preserve its date/text/type/category/account filters across all pages, or from Reports for the selected period. Text fields escape spreadsheet formulas; cents use exact decimal formatting. Export files contain financial information and should remain local/out of Git.

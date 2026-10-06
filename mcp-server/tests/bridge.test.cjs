@@ -30,6 +30,22 @@ test('advertises every initial ledger tool with read/write side effects and revi
   assert.equal(tools.find(t=>t.name==='commit_import').annotations.readOnlyHint,false);
   assert.match(tools.find(t=>t.name==='create_transaction').description,/manual|import/i);
 });
+test('report tools read shared category/trend/balance snapshots and matched year comparisons',async()=>{
+  const {tools}=await client.listTools();
+  assert.ok(tools.some(t=>t.name==='get_report'),'Missing get_report');
+  assert.ok(tools.some(t=>t.name==='get_year_comparison'),'Missing get_year_comparison');
+  assert.equal(tools.find(t=>t.name==='get_report').annotations.readOnlyHint,true);
+  const before=db.prepare('SELECT count(*) n FROM transactions').get().n;
+  const period={dateFrom:'2026-01-01',dateTo:'2026-01-31'};
+  const snapshot=data(await client.callTool({name:'get_report',arguments:{report:'insights',...period}}));
+  assert.equal(snapshot.overview.dateFrom,period.dateFrom);
+  assert.equal(snapshot.budgets[0].year,2026);
+  const categories=data(await client.callTool({name:'get_report',arguments:{report:'categories',...period}}));
+  assert.equal(typeof categories.totalNetExpensesCents,'number');
+  const comparison=data(await client.callTool({name:'get_year_comparison',arguments:period}));
+  assert.equal(comparison.previous.dateFrom,'2025-01-01');
+  assert.equal(db.prepare('SELECT count(*) n FROM transactions').get().n,before);
+});
 test('real stdio read goes through the token-authenticated HTTP API',async()=>{
   const result=data(await client.callTool({name:'list_accounts',arguments:{page:1}}));
   assert.equal(result[0].id,account.id);
