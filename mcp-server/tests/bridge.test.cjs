@@ -87,3 +87,19 @@ test('goal tools share current savings progress and revision-safe lifecycle with
  const rows=data(await client.callTool({name:'list_goals',arguments:{includeArchived:true}}));assert.ok(rows.some(row=>row.id===created.id));
  assert.equal(db.prepare('SELECT count(*) AS n FROM transactions').get().n,count);
 });
+
+test('recurring MCP tools preview future changes and confirm/skip explicitly without rewriting records',async()=>{
+ const salary=db.prepare("SELECT id FROM categories WHERE name='Salary'").get();const initialCount=db.prepare('SELECT count(*) AS n FROM transactions').get().n;
+ const template=data(await client.callTool({name:'create_recurring',arguments:{name:'Synthetic salary',effectiveDate:'2026-01-01',amountCents:500000,type:'income',accountId:account.id,categoryId:salary.id,description:'Recurring salary',cadence:'monthly',anchorDate:'2026-01-31',endDate:null}}));
+ assert.equal(db.prepare('SELECT count(*) AS n FROM transactions').get().n,initialCount);
+ const occurrences=data(await client.callTool({name:'list_reminders',arguments:{dateFrom:'2026-01-01',dateTo:'2026-02-28'}}));assert.equal(occurrences.length,2);
+ const confirmed=data(await client.callTool({name:'confirm_reminder',arguments:{id:occurrences[0].id,expectedRevision:1,confirmationAcknowledged:true,amountCents:510000}}));assert.equal(confirmed.transaction.amount_cents,510000);assert.equal(confirmed.transaction.source,'recurring');
+ const skipped=data(await client.callTool({name:'skip_reminder',arguments:{id:occurrences[1].id,expectedRevision:1}}));assert.equal(skipped.status,'skipped');
+ const change={id:template.id,expectedRevision:1,effectiveDate:'2027-01-01',percentageChange:'3'};
+ const preview=data(await client.callTool({name:'preview_recurring_version',arguments:change}));assert.equal(preview.amountCents,515000);
+ const changed=data(await client.callTool({name:'add_recurring_version',arguments:{...change,previewAcknowledged:true}}));assert.equal(changed.versions.length,2);
+ assert.deepEqual(data(await client.callTool({name:'get_transaction',arguments:{id:confirmed.transaction.id}})),confirmed.transaction);
+ const renamed=data(await client.callTool({name:'update_recurring',arguments:{id:template.id,expectedRevision:2,name:'Renamed synthetic salary'}}));assert.equal(renamed.revision,3);
+ const schedules=data(await client.callTool({name:'list_recurring',arguments:{}}));assert.ok(schedules.some(row=>row.name==='Renamed synthetic salary'));
+ assert.equal(db.prepare('SELECT count(*) AS n FROM transactions').get().n,initialCount+1);
+});

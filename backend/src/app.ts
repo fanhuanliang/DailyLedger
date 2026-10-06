@@ -1,3 +1,4 @@
+import { recurringRouter, remindersRouter } from './routes/recurring';
 import { goalsRouter } from './routes/goals';
 import { budgetsRouter } from './routes/budgets';
 import { reportsRouter } from './routes/reports';
@@ -42,6 +43,8 @@ export function createApp(db: Database.Database, options: AppOptions = {}) {
 
   app.get('/api/v1/csrf-token', security.csrfTokenHandler);
   app.use('/api/v1', security.guard);
+  app.use('/api/v1/recurring', recurringRouter(db));
+  app.use('/api/v1/reminders', remindersRouter(db));
   app.use('/api/v1/goals', goalsRouter(db));
   app.use('/api/v1/budgets', budgetsRouter(db));
   app.use('/api/v1/reports', reportsRouter(db));

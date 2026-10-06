@@ -11,7 +11,7 @@ describe('Foundation: persistent database and API contracts', () => {
     try {
       expect(db.pragma('foreign_keys', { simple: true })).toBe(1);
       expect(db.prepare('SELECT household_timezone, currency FROM settings').get()).toEqual({ household_timezone: 'America/Los_Angeles', currency: 'USD' });
-      expect(db.prepare('SELECT count(*) AS count FROM schema_migrations').get()).toEqual({ count: 6 });
+      expect(db.prepare('SELECT count(*) AS count FROM schema_migrations').get()).toEqual({ count: 7 });
     } finally { db.close(); }
   });
   test('reopening a real file preserves settings and does not rerun migrations', () => {
@@ -23,7 +23,7 @@ describe('Foundation: persistent database and API contracts', () => {
       try {
         expect(reopened.pragma('journal_mode', { simple: true })).toBe('wal');
         expect(reopened.prepare('SELECT household_timezone FROM settings').get()).toEqual({ household_timezone: 'America/New_York' });
-        expect(reopened.prepare('SELECT count(*) AS count FROM schema_migrations').get()).toEqual({ count: 6 });
+        expect(reopened.prepare('SELECT count(*) AS count FROM schema_migrations').get()).toEqual({ count: 7 });
       } finally { reopened.close(); }
     } finally { if (!resolve(directory).startsWith(join(resolve(tmpdir()), 'dailyledger-test-'))) throw new Error('Unsafe test cleanup path'); rmSync(directory, { recursive: true, force: true }); }
   });

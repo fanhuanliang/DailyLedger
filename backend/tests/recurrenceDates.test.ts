@@ -1,0 +1,6 @@
+import { recurrenceDates, type Schedule } from '../src/services/recurrenceDates';
+const schedule = (cadence: Schedule['cadence'], anchorDate: string): Schedule => ({ cadence, anchorDate, effectiveDate: anchorDate, endDate: null });
+test('monthly anchor31 clamps February then returns to March31', () => expect(recurrenceDates(schedule('monthly', '2026-01-31'), '2026-01-01', '2026-03-31')).toEqual(['2026-01-31', '2026-02-28', '2026-03-31']));
+test('yearly leap-day anchor clamps nonleap years without drift', () => expect(recurrenceDates(schedule('yearly', '2024-02-29'), '2025-01-01', '2028-12-31')).toEqual(['2025-02-28', '2026-02-28', '2027-02-28', '2028-02-29']));
+test.each([{ cadence: 'weekly' as const, dates: ['2026-01-01', '2026-01-08', '2026-01-15', '2026-01-22', '2026-01-29'] }, { cadence: 'biweekly' as const, dates: ['2026-01-01', '2026-01-15', '2026-01-29'] }])('$cadence preserves inclusive anchor and interval', ({ cadence, dates }) => expect(recurrenceDates(schedule(cadence, '2026-01-01'), '2026-01-01', '2026-01-31')).toEqual(dates));
+test('effective/start/end/range boundaries are inclusive', () => expect(recurrenceDates({ ...schedule('monthly', '2026-01-31'), effectiveDate: '2026-02-01', endDate: '2026-03-31' }, '2026-01-01', '2026-12-31')).toEqual(['2026-02-28', '2026-03-31']));

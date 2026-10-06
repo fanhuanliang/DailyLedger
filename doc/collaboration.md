@@ -1,7 +1,15 @@
 # Collaboration log
 
-Claude Code CLI review session: c3e1f5d8-1c36-4b73-9949-ca3d7cda4a8f.
-This is a separate CLI session, not the owner's existing desktop chat.
+Historical Claude Code CLI review session: c3e1f5d8-1c36-4b73-9949-ca3d7cda4a8f. Preserve as history; do not resume for new reviews.
+New reviews use fresh scoped CLI sessions under doc/review-strategy.md. These are separate from the owner's existing desktop chat. No replacement session has been invoked for this process update.
+
+## October 5 - Efficient review process update
+
+Owner requested efficient Claude prompting and avoidance of unnecessary repeated testing. Codex updated AGENTS.md/CLAUDE.md and added doc/review-strategy.md: fresh session per coherent step, compact requirement/diff/evidence packet, bounded supporting reads, one consolidated disposition, focused fixes/re-review, and no automatic duplication of the coder's full checks. Preserve mandatory TDD, independent source review, quality gates, stage checks, and owner conflict decisions. Quota failure remains BLOCKED; no repeated availability probes or bypass.
+
+Investigation evidence: deduplicated recent assistant usage records show approximately750k-905k input-context tokens per request including cached input, with some13k-16.5k-token outputs. These do not establish exact subscription quota consumption. Current checks: backend141passed/5unfinishedreportfailures,frontend56passed,MCP8passed against existing compiled code,all3typechecks passed. In-memory source reproduction accepted cadence:["monthly"] with201; unresolved server-validation defect at recurringService.ts validateVersion. No household data changed.
+
+Documentation-only process update: consistency/diff checks only; application suites were not repeated for these edits. Independent Claude review not requested while quota is blocked; no approval or commit claimed. Next review must use a fresh scoped packet covering recurring/calendar changes and the malformed-cadence finding, with report-test preparation excluded and its failures disclosed.
 
 ## Coordination setup
 Codex owns edits. Claude Code receives a read-only review of the proposed rules and tracking files. Review result pending.
@@ -53,3 +61,8 @@ October4 resumed final Stage3 review after reset: Claude returned APPROVED for c
 October4 annual budgets APPROVED by Claude against baseline8f7755f and exact saved diff. Static read-only review, no reviewer-executed tests; Codex109 backend/51 frontend/6 MCP, types/build, isolated desktop/phone passed. No actionable findings or disagreement. Optional API accepts any distinct source year; UI copies previous year, target-only/overwrite invariants unchanged. Goals work excluded from approval and commit.
 October5 savings goals Claude APPROVED baseline0ea146c exact saved diff/static reads. No blocking findings/disagreement. Codex115 backend/53 frontend/7 MCP,3package types/build and isolated browser lifecycle1440/375 passed. Optional cosmetic spacing classes and goal-specific overflow rollback test recorded; current readable phone layout inspected, shared calculation covered. Arithmetic fix is outside this approval.
 Percentage helper review baseline4ad81cd: Claude APPROVED exactness/precision; flagged rounding target interpretation for owner decision. Owner October5 explicitly chose final-amount half-up. Spec clarified; ambiguity resolved by actual owner reply, no waived tests. Codex fullbackend118 and backendtypes/build passed before subsequent recurring work. Arithmetic files only committed; recurring implementation excluded.
+October5 recurring review baseline418b16f interrupted before final answer: Claude exit1/API429, session limit resets2:20pm America/Los_Angeles. Static reading/thinking does not establish approval; no final findings/disposition. Codex fixes/checks already reported140/56/8 and3package types/build/browser. After interruption, supporting early-year validation regression fixed and backend141pass/5expectedRed report tests recorded; resumed review must include calendarDate.ts/calendarYears.test.ts and fresh exact diff. No recurring commit, no automatic retry, no quota bypass. Latest journal2026-10-05 is shared resumption source.
+
+October5 fresh scoped reminder/calendar/process review: session 9889371c-801b-4a08-8c43-b2c4eb34dd5d; baseline418b16f; snapshot <USER_HOME>/AppData/Local/Temp/dailyledger-reminders-scoped-review.txt; coder Codex, reviewer Claude read-only. Includes explicit new recurring/calendar/UI/MCP files and efficient-review/privacy rules; excludes reports.test.ts and private financial data. No old oversized session resumed. Disposition pending.
+
+Fresh reviewer9889371c-801b-4a08-8c43-b2c4eb34dd5d returned final APPROVED for exact reminder/calendar/process packet after supplied frontend56/MCP8/backend143/type/build evidence. Reviewer static reads/hand traces only, no execution. No blocking findings/disagreement; optional non-append-order insertion coverage/end-date inclusivity/two-write confirm recorded. Five pending report tests/drafts excluded. Instructions now use fresh scoped sessions; old oversized session is historical only.
