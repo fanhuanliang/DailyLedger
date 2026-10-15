@@ -112,7 +112,7 @@ Show the user the final selected records and totals before committing. MCP appro
 
 Commit is all-or-nothing for included rows. Return inserted IDs/count, explicitly skipped count, and errors if validation fails; validation failure inserts zero rows. Use integer cents throughout extraction normalization and saving.
 
-MCP bridge: local stdio process calling the VM API, following the existing reference application pattern. Configure VM URL and scoped token during setup. Do not access SQLite directly.
+MCP bridge: local stdio process calling the VM API, following the reference application pattern. Configure VM URL and scoped token during setup. Do not access SQLite directly.
 
 Initial tools: list_accounts, list_categories, list_transactions, get_transaction, get_summary, preview_import, commit_import, create_transaction, update_transaction. When remaining features land, add read/write budget and goal tools, recurring-version/reminder tools, and report queries. Tool schemas expose required fields and side effects. Reviewed imports always use preview_import then commit_import; never bypass review using create_transaction.
 

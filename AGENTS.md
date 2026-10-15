@@ -35,7 +35,7 @@ Rules:
 
 ## 3. Stack and layout
 
-Use the documented stack and layout unless the spec requires something different.
+Use the stack and layout below unless the spec requires something different.
 
 ```
 DailyLedger/
@@ -100,6 +100,7 @@ DailyLedger/
 - Logs must never contain tokens, request bodies with financial data, or amounts. Log method, path, status and duration only.
 - Secrets, DB path, port and timezone come from env vars. `.env.example` documents them. `.gitignore` covers `.env`, `*.db`, `*.db-*`, `backups/`.
 - No public port forwarding. Restrict exposure to the home network.
+- Public source and documentation must use generic examples. Keep personal and family names, local usernames/paths, addresses, account identifiers, real financial amounts, credentials, and private operational notes outside Git. Check both file contents and commit metadata/history before publication; deleting identifying text from the latest files does not remove it from earlier commits.
 
 ## 8. MCP bridge
 

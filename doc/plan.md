@@ -9,7 +9,7 @@ DailyLedger helps a husband and wife record household income and expenses, manag
 - Develop in `<project-directory>`.
 - Run the app in a VM on the home server.
 - Access it through browsers on phones and computers, on the home network only.
-- Follow reference application's general structure: React frontend, Node.js/TypeScript API, SQLite database, Docker Compose deployment, and a separate MCP bridge.
+- Follow the reference application's general structure: React frontend, Node.js/TypeScript API, SQLite database, Docker Compose deployment, and a separate MCP bridge.
 - Choose available ports during implementation so existing applications are unaffected.
 - Keep the database in persistent storage and provide a simple backup and restore procedure.
 - No public access or external bank connection is planned for the first version.

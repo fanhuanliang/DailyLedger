@@ -14,3 +14,26 @@ receipts/
 statements/
 *.log
 doc/private-financial/
+
+# Keep private financial documents and credentials out of source control.
+*.csv
+*.tsv
+*.xls
+*.xlsx
+*.xlsm
+*.pdf
+*.db3
+*.sqlite-*
+*.sqlite3-*
+*.bak
+*.backup
+*.pem
+*.key
+*.p12
+*.pfx
+*token*.txt
+secrets/
+reconcile/
+financial-data/
+.ssh/
+.claude/settings.local.json

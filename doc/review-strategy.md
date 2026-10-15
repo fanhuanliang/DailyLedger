@@ -4,7 +4,7 @@ Effective October 5, 2026. Owner requested more efficient review prompting and a
 
 ## Why this changed
 
-Large historical review sessions carry unnecessary context. Use fresh, scoped reviews.
+Repeatedly resuming a large historical review session carries unnecessary context into small review steps. Use compact, fresh sessions to reduce repeated context and avoid unnecessary quota use. Provider quota accounting is not assumed.
 
 ## Session scope
 
