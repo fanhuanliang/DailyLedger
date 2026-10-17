@@ -1,6 +1,6 @@
 # DailyLedger deployment and recovery
 
-Local container and recovery checks use a disposable dataset. The VM runs Ubuntu. Production rollout still needs the VM address, available port, backup destination/retention and owner authorization. Do not publish or expose the app publicly. Keep GitHub private and exclude databases, backups, environment files and financial workbooks.
+Local container and recovery checks use a disposable dataset. The VM runs Ubuntu. Deployment-specific addresses, ports, backup destinations and credentials stay in private runtime configuration. The sanitized application source may be public; the running app remains home-network-only. Exclude databases, backups, environment files and financial workbooks from Git, and keep deployment automation in a separate private repository.
 
 ## Prepare the VM
 
@@ -20,6 +20,10 @@ node backend/dist/maintenance.js restore BACKUP_FILE NEW_RESTORE_FILE
 ```
 
 Quote paths containing spaces. The destination must be new; the source must be an existing DailyLedger database. Both operations copy the entire normalized ledger, settings, planning history and import metadata. They do not back up original documents, which the app never stores. Do not copy a live `.db` file alone while its WAL is active.
+
+A staged backup can retain SQLite WAL mode. Opening it read-only can still require a writable staging directory for sidecar files; a read-only bind mount can cause SQLITE_CANTOPEN. Keep staging private and writable while restoring, while the maintenance command opens the source database read-only.
+
+For new installations use current Docker Compose. Legacy Compose 1.29.2 may fail with ContainerConfig when recreating an existing container. Removing only this application's containers/network with `docker-compose down`, without volume flags, then starting it again preserves the named database volume. The dedicated deployment script uses this compatibility approach; it never removes production volumes.
 
 For the default container path, an example online backup inside the data volume is:
 

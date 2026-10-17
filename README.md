@@ -2,6 +2,8 @@
 
 Shared household finance app for the home network. Requirements: doc/spec.md. Workflow: AGENTS.md and CLAUDE.md.
 
+GitHub Actions runs tests, type checks, builds and isolated container checks on main pushes and pull requests. It also supports manual runs. See [CI and deployment](doc/ci.md) for the separate private deployment-runner setup.
+
 ## Development
 
 Use Node 24 LTS and pnpm 11.19.0 (`npm install --global pnpm@11.19.0` on your development machine). Run `pnpm install --frozen-lockfile` from this folder. In separate terminals run `pnpm --filter @dailyledger/backend dev` and `pnpm --filter @dailyledger/frontend dev`. Open http://127.0.0.1:5173. The frontend proxies /api to the backend at port 5010.
